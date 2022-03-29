@@ -1,6 +1,12 @@
 import { checkAuth,
-    logout 
+    logout,
+    createItem,
+    deleteAllItems,
+    getItems,
+    buyItem
 } from '../fetch-utils.js';
+
+import { renderItem } from '../render-utils.js';
 
 checkAuth();
 
