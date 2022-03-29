@@ -18,3 +18,34 @@ const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', () => {
     logout();
 });
+
+window.addEventListener('load', async () => {
+    await fetchAndDisplayList();
+});
+
+deleteButton.addEventListener('click', async () => {
+    await deleteAllItems();
+    fetchAndDisplayList();
+});
+
+itemForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(itemForm);
+    const item = data.get('item');
+    await createItem(item);
+    itemForm.reset();
+    await fetchAndDisplayList();
+});
+
+async function fetchAndDisplayList() {
+    const items = await getItems();
+    itemEl.textContent = '';
+    for (let item of items) {
+        const itemObj = renderItem(item);
+        itemObj.addEventListener('click', async () => {
+            await buyItem(item.id);
+            fetchAndDisplayList();
+        });
+        itemEl.append(itemObj);
+    }
+}
