@@ -14,6 +14,11 @@ const itemEl = document.querySelector('.items');
 const itemForm = document.querySelector('.item-form');
 const deleteButton = document.querySelector('.delete-button');
 const logoutButton = document.getElementById('logout');
+const loadingEl = document.querySelector('.loading-spinner');
+
+function toggleLoadingSpinner() {
+    loadingEl.classList.toggle('invisible');
+}
 
 logoutButton.addEventListener('click', () => {
     logout();
@@ -38,6 +43,7 @@ itemForm.addEventListener('submit', async (e) => {
 });
 
 async function fetchAndDisplayList() {
+    toggleLoadingSpinner();
     const items = await getItems();
     itemEl.textContent = '';
     for (let item of items) {
@@ -48,4 +54,5 @@ async function fetchAndDisplayList() {
         });
         itemEl.append(itemObj);
     }
+    toggleLoadingSpinner();
 }
