@@ -4,11 +4,12 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export async function createItem(item) {
+export async function createItem(item, quantity) {
     const response = await client
         .from('shopping_list')
         .insert({ 
             item: item,
+            quantity: quantity,
             is_bought: false,
             user_id: client.auth.user().id
         });

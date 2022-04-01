@@ -37,7 +37,8 @@ itemForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(itemForm);
     const item = data.get('item');
-    await createItem(item);
+    const quantity = data.get('quantity');
+    await createItem(item, quantity);
     itemForm.reset();
     await fetchAndDisplayList();
 });
